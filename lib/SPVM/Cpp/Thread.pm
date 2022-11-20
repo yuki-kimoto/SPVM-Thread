@@ -1,4 +1,4 @@
-package SPVM::Thread;
+package SPVM::Cpp::Thread;
 
 our $VERSION = '0.01';
 
@@ -6,15 +6,15 @@ our $VERSION = '0.01';
 
 =head1 Name
 
-SPVM::Thread - Thread is a SPVM module
+SPVM::Cpp::Thread - Cpp::Thread is a SPVM module
 
 =head1 Usage
 
-  use Thread;
+  use Cpp::Thread;
   
 =head1 Description
 
-C<Thread> is a L<SPVM> module.
+C<Cpp::Thread> is a L<SPVM> module.
 
 =head1 Fields
 

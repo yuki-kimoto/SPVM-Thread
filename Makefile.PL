@@ -6,11 +6,11 @@ use Config;
 use SPVM::Builder::Util::API;
 
 WriteMakefile(
-  NAME              => 'SPVM::Thread',
-  VERSION_FROM      => 'lib/SPVM/Thread.pm',
+  NAME              => 'SPVM::Cpp::Thread',
+  VERSION_FROM      => 'lib/SPVM/Cpp/Thread.pm',
   LICENSE           => 'perl_5',
   ($] >= 5.005 ?     ## Add these new keywords supported since 5.005
-    (ABSTRACT_FROM  => 'lib/SPVM/Thread.pm',
+    (ABSTRACT_FROM  => 'lib/SPVM/Cpp/Thread.pm',
      AUTHOR         => 'USER_NAME<USER_MAIL>') : ()),
   test => {TESTS => 't/*.t t/*/*.t t/*/*/*.t'},
   clean => {FILES => ['.spvm_build', 't/.spvm_build']},
@@ -44,7 +44,7 @@ sub MY::postamble {
 
   my $make_rule = '';
   
-  $make_rule .= SPVM::Builder::Util::API::create_make_rule_native('Thread');
+  $make_rule .= SPVM::Builder::Util::API::create_make_rule_native('Cpp::Thread');
   
   
   return $make_rule;

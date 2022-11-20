@@ -1,5 +1,5 @@
-class TestCase::Thread {
-  use Thread;
+class TestCase::Cpp::Thread {
+  use Cpp::Thread;
   static method test : int () {
     
     return 1;
