@@ -3,18 +3,18 @@
 #include <iostream>
 #include <thread>
 
-void
-do_worker1 () {
-        std::cout << __PRETTY_FUNCTION__ << std::endl;
-}
-
 extern "C" {
 
 static const char* FILE_NAME = "Cpp/Thread.cpp";
 
 static void handler (SPVM_ENV* env, SPVM_VALUE* stack, void* obj_handler) {
   
-  env->call_instance_method_by_name(env, stack, obj_handler, "", 0, FILE_NAME, __LINE__);
+  int32_t e = 0;
+  
+  {
+    stack[0].oval = obj_handler;
+    env->call_instance_method_by_name(env, stack, obj_handler, "", 0, FILE_NAME, __LINE__);
+  }
   
   return;
 }

@@ -4,8 +4,9 @@ class TestCase::Cpp::Thread {
   
   static method test : int () {
     
-    my $thread = Cpp::Thread->new(method : void () {
-      warn "AAA";
+    my $foo = 4;
+    my $thread = Cpp::Thread->new([$foo : int] method : void () {
+      warn "AAA $foo";
     });
     
     $thread->join;
