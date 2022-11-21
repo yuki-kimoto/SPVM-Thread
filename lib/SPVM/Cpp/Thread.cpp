@@ -27,7 +27,7 @@ int32_t SPVM__Cpp__Thread__new(SPVM_ENV* env, SPVM_VALUE* stack) {
   
   void* obj_handler = stack[0].oval;
   
-  std::thread* nt_thread = (std::thread*)env->alloc_memory_block_zero(env, sizeof(std::thread));
+  std::thread* nt_thread = (std::thread*)env->new_memory_stack(env, stack, sizeof(std::thread));
   
   *nt_thread = std::thread(handler, env, stack, obj_handler);
 
@@ -53,6 +53,19 @@ int32_t SPVM__Cpp__Thread__join(SPVM_ENV* env, SPVM_VALUE* stack) {
     env->die(env, stack, "[System Error]join failed:%s", cpp_exception.what(), FILE_NAME, __LINE__);
     return SPVM_NATIVE_C_CLASS_ID_ERROR_SYSTEM;
   }
+}
+
+int32_t SPVM__Cpp__Thread__joinable(SPVM_ENV* env, SPVM_VALUE* stack) {
+  
+  int32_t e;
+  
+  void* obj_thread = stack[0].oval;
+  
+  std::thread* nt_thread = (std::thread*)env->get_pointer(env, stack, obj_thread);
+  
+  int32_t joinable = nt_thread->joinable();
+  
+  stack[0].ival = joinable;
 }
 
 }

@@ -4,4 +4,6 @@ class Cpp::Thread {
   native static method new : Cpp::Thread ($handler : Cpp::Thread::Handler);
   
   native method join : void ();
+
+  native method joinable : int ();
 }
