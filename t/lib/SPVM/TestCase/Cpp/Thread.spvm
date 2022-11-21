@@ -2,20 +2,30 @@ class TestCase::Cpp::Thread {
   use Cpp::Thread;
   use Sys::Process;
   
+  our $FOO : public int;
+  
   static method test : int () {
     
-    my $foo = 4;
-    my $thread = Cpp::Thread->new([$foo : int] method : void () {
-      $foo = 5;
+    $TestCase::Cpp::Thread::FOO = 5;
+    
+    my $foo = [13];
+    my $thread = Cpp::Thread->new([$foo : int[]] method : void () {
+      warn "CCC $foo->[0]";
+      $foo->[0] = 5;
+      $TestCase::Cpp::Thread::FOO = 10;
+      
+      warn "AAA $TestCase::Cpp::Thread::FOO";
+      
+      warn "BBB $foo->[0]";
     });
     
-    warn $foo;
-    
-    warn $thread->joinable;
-    
     $thread->join;
-
-    warn $thread->joinable;
+    
+    # Sys::Process->sleep(1);
+    
+    say $FOO;
+    
+    say $foo->[0];
 
     return 1;
   }
