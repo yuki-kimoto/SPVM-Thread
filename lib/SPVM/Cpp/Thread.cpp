@@ -35,6 +35,8 @@ int32_t SPVM__Cpp__Thread__new(SPVM_ENV* env, SPVM_VALUE* stack) {
   if (e) { return e; }
 
   stack[0].oval = obj_thread;
+  
+  return 0;
 }
 
 int32_t SPVM__Cpp__Thread__join(SPVM_ENV* env, SPVM_VALUE* stack) {
@@ -53,6 +55,8 @@ int32_t SPVM__Cpp__Thread__join(SPVM_ENV* env, SPVM_VALUE* stack) {
     env->die(env, stack, "[System Error]join failed:%s", cpp_exception.what(), FILE_NAME, __LINE__);
     return SPVM_NATIVE_C_CLASS_ID_ERROR_SYSTEM;
   }
+  
+  return 0;
 }
 
 int32_t SPVM__Cpp__Thread__joinable(SPVM_ENV* env, SPVM_VALUE* stack) {
@@ -66,6 +70,8 @@ int32_t SPVM__Cpp__Thread__joinable(SPVM_ENV* env, SPVM_VALUE* stack) {
   int32_t joinable = nt_thread->joinable();
   
   stack[0].ival = joinable;
+  
+  return 0;
 }
 
 }
