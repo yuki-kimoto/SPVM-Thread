@@ -12,8 +12,10 @@ static void handler (SPVM_ENV* env, SPVM_VALUE* stack, void* obj_handler) {
   int32_t e = 0;
   
   {
-    stack[0].oval = obj_handler;
-    env->call_instance_method_by_name(env, stack, obj_handler, "", 0, FILE_NAME, __LINE__);
+    SPVM_VALUE* thread_stack = env->new_stack(env);
+    thread_stack[0].oval = obj_handler;
+    env->call_instance_method_by_name(env, thread_stack, obj_handler, "", 0, FILE_NAME, __LINE__);
+    env->free_stack(env, thread_stack);
   }
   
   return;
@@ -27,9 +29,7 @@ int32_t SPVM__Cpp__Thread__new(SPVM_ENV* env, SPVM_VALUE* stack) {
   
   std::thread* nt_thread = (std::thread*)env->alloc_memory_block_zero(env, sizeof(std::thread));
   
-  SPVM_VALUE* thread_stack = env->new_stack(env);
-  
-  *nt_thread = std::thread(handler, env, thread_stack, obj_handler);
+  *nt_thread = std::thread(handler, env, stack, obj_handler);
 
   void* obj_thread = env->new_pointer_by_name(env, stack, "Cpp::Thread", nt_thread, &e, FILE_NAME, __LINE__);
   if (e) { return e; }
