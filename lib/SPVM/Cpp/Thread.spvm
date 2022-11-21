@@ -1,4 +1,7 @@
 class Cpp::Thread {
-  use Cpp::Thread::NativeObject;
-
+  use Cpp::Thread::Handler;
+  
+  native static method new : Cpp::Thread ($handler : Cpp::Thread::Handler);
+  
+  native method join : void ();
 }
