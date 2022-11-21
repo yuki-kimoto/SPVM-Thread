@@ -6,10 +6,16 @@ class TestCase::Cpp::Thread {
     
     my $foo = 4;
     my $thread = Cpp::Thread->new([$foo : int] method : void () {
-      warn "AAA $foo";
+      $foo = 5;
     });
     
+    warn $foo;
+    
+    warn $thread->joinable;
+    
     $thread->join;
+
+    warn $thread->joinable;
 
     return 1;
   }
