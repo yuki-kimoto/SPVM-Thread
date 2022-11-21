@@ -1,3 +1,4 @@
 class Cpp::Thread {
+  use Cpp::Thread::NativeObject;
 
 }

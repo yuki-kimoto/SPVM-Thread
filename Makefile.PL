@@ -45,6 +45,7 @@ sub MY::postamble {
   my $make_rule = '';
   
   $make_rule .= SPVM::Builder::Util::API::create_make_rule_native('Cpp::Thread');
+  $make_rule .= SPVM::Builder::Util::API::create_make_rule_native('Cpp::Thread::NativeObject');
   
   
   return $make_rule;
