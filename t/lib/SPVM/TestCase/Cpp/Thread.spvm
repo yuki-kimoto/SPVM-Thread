@@ -1,7 +1,15 @@
 class TestCase::Cpp::Thread {
   use Cpp::Thread;
+  use Sys::Process;
+  
   static method test : int () {
     
+    my $thread = Cpp::Thread->new(method : void () {
+      warn "AAA";
+    });
+    
+    $thread->join;
+
     return 1;
   }
 }
