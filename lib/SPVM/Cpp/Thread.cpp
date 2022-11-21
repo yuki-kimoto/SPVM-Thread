@@ -58,6 +58,26 @@ int32_t SPVM__Cpp__Thread__join(SPVM_ENV* env, SPVM_VALUE* stack) {
   return 0;
 }
 
+
+int32_t SPVM__Cpp__Thread__detach(SPVM_ENV* env, SPVM_VALUE* stack) {
+  
+  int32_t e;
+  
+  void* obj_thread = stack[0].oval;
+  
+  std::thread* nt_thread = (std::thread*)env->get_pointer(env, stack, obj_thread);
+  
+  try {
+    nt_thread->detach();
+  }
+  catch (std::exception& cpp_exception){
+    env->die(env, stack, "[System Error]detach failed:%s", cpp_exception.what(), FILE_NAME, __LINE__);
+    return SPVM_NATIVE_C_CLASS_ID_ERROR_SYSTEM;
+  }
+  
+  return 0;
+}
+
 int32_t SPVM__Cpp__Thread__joinable(SPVM_ENV* env, SPVM_VALUE* stack) {
   
   int32_t e;

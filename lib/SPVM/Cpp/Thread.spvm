@@ -5,5 +5,7 @@ class Cpp::Thread {
   
   native method join : void ();
 
+  native method detach : void ();
+
   native method joinable : int ();
 }
