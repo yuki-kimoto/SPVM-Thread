@@ -9,12 +9,12 @@ static const char* FILE_NAME = "Cpp/Thread.cpp";
 
 static void handler (SPVM_ENV* env, SPVM_VALUE* stack, void* obj_handler) {
   
-  int32_t e = 0;
+  int32_t error_id = 0;
   
   {
     SPVM_VALUE* thread_stack = env->new_stack(env);
     thread_stack[0].oval = obj_handler;
-    env->call_instance_method_by_name(env, thread_stack, obj_handler, "", 0, FILE_NAME, __LINE__);
+    env->call_instance_method_by_name(env, thread_stack, "", 0, &error_id, __func__, FILE_NAME, __LINE__);
     env->free_stack(env, thread_stack);
   }
   
@@ -23,16 +23,16 @@ static void handler (SPVM_ENV* env, SPVM_VALUE* stack, void* obj_handler) {
 
 int32_t SPVM__Cpp__Thread__new(SPVM_ENV* env, SPVM_VALUE* stack) {
   
-  int32_t e;
+  int32_t error_id = 0;
   
   void* obj_handler = stack[0].oval;
   
-  std::thread* nt_thread = (std::thread*)env->new_memory_stack(env, stack, sizeof(std::thread));
+  std::thread* nt_thread = (std::thread*)env->new_memory_block(env, stack, sizeof(std::thread));
   
   *nt_thread = std::thread(handler, env, stack, obj_handler);
 
-  void* obj_thread = env->new_pointer_by_name(env, stack, "Cpp::Thread", nt_thread, &e, FILE_NAME, __LINE__);
-  if (e) { return e; }
+  void* obj_thread = env->new_pointer_object_by_name(env, stack, "Cpp::Thread", nt_thread, &error_id, __func__, FILE_NAME, __LINE__);
+  if (error_id) { return error_id; }
 
   stack[0].oval = obj_thread;
   
@@ -51,8 +51,8 @@ int32_t SPVM__Cpp__Thread__join(SPVM_ENV* env, SPVM_VALUE* stack) {
     nt_thread->join();
   }
   catch (std::exception& cpp_exception){
-    env->die(env, stack, "[System Error]join failed:%s", cpp_exception.what(), FILE_NAME, __LINE__);
-    return SPVM_NATIVE_C_CLASS_ID_ERROR_SYSTEM;
+    env->die(env, stack, "[System Error]join failed:%s", cpp_exception.what(), __func__, FILE_NAME, __LINE__);
+    return SPVM_NATIVE_C_BASIC_TYPE_ID_ERROR_SYSTEM_CLASS;
   }
   
   return 0;
@@ -71,8 +71,8 @@ int32_t SPVM__Cpp__Thread__detach(SPVM_ENV* env, SPVM_VALUE* stack) {
     nt_thread->detach();
   }
   catch (std::exception& cpp_exception){
-    env->die(env, stack, "[System Error]detach failed:%s", cpp_exception.what(), FILE_NAME, __LINE__);
-    return SPVM_NATIVE_C_CLASS_ID_ERROR_SYSTEM;
+    env->die(env, stack, "[System Error]detach failed:%s", cpp_exception.what(), __func__, FILE_NAME, __LINE__);
+    return SPVM_NATIVE_C_BASIC_TYPE_ID_ERROR_SYSTEM_CLASS;
   }
   
   return 0;
