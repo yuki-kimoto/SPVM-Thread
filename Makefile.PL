@@ -19,8 +19,8 @@ WriteMakefile(
     resources => {
       repository => {
         type => 'git',
-        url  => '',
-        web  => '',
+        url  => 'https://github.com/yuki-kimoto/SPVM-Thread.git',
+        web  => 'https://github.com/yuki-kimoto/SPVM-Thread',
       },
     },
     no_index => {
@@ -30,7 +30,7 @@ WriteMakefile(
   NORECURS => 1,
   CONFIGURE_REQUIRES => {
     # SPVM::Builder::Util::API is needed for Makefile.PL
-    'SPVM'              => '0.9662',
+    'SPVM'              => '0.989058',
   },
   PREREQ_PM => {
     
