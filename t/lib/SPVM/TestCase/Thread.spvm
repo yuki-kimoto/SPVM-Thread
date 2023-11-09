@@ -1,32 +1,29 @@
 class TestCase::Thread {
   use Thread;
-  use Sys::Process;
   
-  our $FOO : public int;
+  our $RESULT : public int[];
   
   static method test : int () {
     
-    $TestCase::Thread::FOO = 5;
+    $TestCase::Thread::RESULT = new int[100];
     
     my $results = [0];
     my $thread = Thread->new([$results : int[]] method : void () {
     
       $results->[0] = 5;
       
-      $TestCase::Thread::FOO = 10;
-      
-      warn "AAA $TestCase::Thread::FOO";
-      
-      warn "BBB $results->[0]";
+      $TestCase::Thread::RESULT->[0] = 10;
     });
     
     $thread->join;
     
-    # Sys::Process->sleep(1);
+    unless ($TestCase::Thread::RESULT->[0] == 10) {
+      return 0;
+    }
     
-    warn $FOO;
-    
-    warn $results->[0];
+    unless ($results->[0] == 5) {
+      return 0;
+    }
     
     return 1;
   }
