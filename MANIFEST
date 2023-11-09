@@ -4,8 +4,6 @@ lib/SPVM/Thread.config
 lib/SPVM/Thread.cpp
 lib/SPVM/Thread.pm
 lib/SPVM/Thread.spvm
-lib/SPVM/Thread/Handler.pm
-lib/SPVM/Thread/Handler.spvm
 Makefile.PL
 MANIFEST			This list of files
 MANIFEST.SKIP

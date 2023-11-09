@@ -1,7 +1,7 @@
 class Thread {
-  use Thread::Handler;
+  use Callback;
   
-  native static method new : Thread ($handler : Thread::Handler);
+  native static method new : Thread ($handler : Callback);
   
   native method join : void ();
 

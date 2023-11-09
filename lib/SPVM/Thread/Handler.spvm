@@ -1,3 +1,0 @@
-class Thread::Handler : interface_t {
-  required method : void ();
-}
