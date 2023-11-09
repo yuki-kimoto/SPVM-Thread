@@ -1,0 +1,11 @@
+class Thread {
+  use Thread::Handler;
+  
+  native static method new : Thread ($handler : Thread::Handler);
+  
+  native method join : void ();
+
+  native method detach : void ();
+
+  native method joinable : int ();
+}

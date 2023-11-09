@@ -5,7 +5,7 @@
 
 extern "C" {
 
-static const char* FILE_NAME = "Cpp/Thread.cpp";
+static const char* FILE_NAME = "Thread.cpp";
 
 static void handler (SPVM_ENV* env, SPVM_VALUE* stack, void* obj_handler) {
   
@@ -21,7 +21,7 @@ static void handler (SPVM_ENV* env, SPVM_VALUE* stack, void* obj_handler) {
   return;
 }
 
-int32_t SPVM__Cpp__Thread__new(SPVM_ENV* env, SPVM_VALUE* stack) {
+int32_t SPVM__Thread__new(SPVM_ENV* env, SPVM_VALUE* stack) {
   
   int32_t error_id = 0;
   
@@ -31,7 +31,7 @@ int32_t SPVM__Cpp__Thread__new(SPVM_ENV* env, SPVM_VALUE* stack) {
   
   *nt_thread = std::thread(handler, env, stack, obj_handler);
 
-  void* obj_thread = env->new_pointer_object_by_name(env, stack, "Cpp::Thread", nt_thread, &error_id, __func__, FILE_NAME, __LINE__);
+  void* obj_thread = env->new_pointer_object_by_name(env, stack, "Thread", nt_thread, &error_id, __func__, FILE_NAME, __LINE__);
   if (error_id) { return error_id; }
 
   stack[0].oval = obj_thread;
@@ -39,7 +39,7 @@ int32_t SPVM__Cpp__Thread__new(SPVM_ENV* env, SPVM_VALUE* stack) {
   return 0;
 }
 
-int32_t SPVM__Cpp__Thread__join(SPVM_ENV* env, SPVM_VALUE* stack) {
+int32_t SPVM__Thread__join(SPVM_ENV* env, SPVM_VALUE* stack) {
   
   int32_t e;
   
@@ -59,7 +59,7 @@ int32_t SPVM__Cpp__Thread__join(SPVM_ENV* env, SPVM_VALUE* stack) {
 }
 
 
-int32_t SPVM__Cpp__Thread__detach(SPVM_ENV* env, SPVM_VALUE* stack) {
+int32_t SPVM__Thread__detach(SPVM_ENV* env, SPVM_VALUE* stack) {
   
   int32_t e;
   
@@ -78,7 +78,7 @@ int32_t SPVM__Cpp__Thread__detach(SPVM_ENV* env, SPVM_VALUE* stack) {
   return 0;
 }
 
-int32_t SPVM__Cpp__Thread__joinable(SPVM_ENV* env, SPVM_VALUE* stack) {
+int32_t SPVM__Thread__joinable(SPVM_ENV* env, SPVM_VALUE* stack) {
   
   int32_t e;
   

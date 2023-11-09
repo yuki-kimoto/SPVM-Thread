@@ -1,3 +1,0 @@
-class Cpp::Thread::Handler : interface_t {
-  required method : void ();
-}

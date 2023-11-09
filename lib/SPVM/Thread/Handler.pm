@@ -1,20 +1,18 @@
-package SPVM::Cpp::Thread;
-
-our $VERSION = '0.01';
+package SPVM::Thread::Handler;
 
 1;
 
 =head1 Name
 
-SPVM::Cpp::Thread - Cpp::Thread is a SPVM module
+SPVM::Thread::Handler - Thread::Handler is a SPVM module
 
 =head1 Usage
 
-  use Cpp::Thread;
+  use Thread::Handler;
   
 =head1 Description
 
-C<Cpp::Thread> is a L<SPVM> module.
+C<Thread::Handler> is a L<SPVM> module.
 
 =head1 Fields
 
@@ -34,11 +32,11 @@ C<Cpp::Thread> is a L<SPVM> module.
 
 =head1 Author
 
-[--user-name] C<[--user-email]>
+Yuki Kimoto C<kimoto.yuki@gmail.com>
 
 =head1 Copyright & License
 
-Copyright 2022-2022 [--user-name], all rights reserved.
+Copyright 2022-2022 Yuki Kimoto, all rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

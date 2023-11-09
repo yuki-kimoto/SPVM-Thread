@@ -1,20 +1,20 @@
-class TestCase::Cpp::Thread {
-  use Cpp::Thread;
+class TestCase::Thread {
+  use Thread;
   use Sys::Process;
   
   our $FOO : public int;
   
   static method test : int () {
     
-    $TestCase::Cpp::Thread::FOO = 5;
+    $TestCase::Thread::FOO = 5;
     
     my $foo = [13];
-    my $thread = Cpp::Thread->new([has foo : int[]] method : void () {
+    my $thread = Thread->new([has foo : int[]] method : void () {
       warn "CCC $self->{foo}[0]";
       $self->{foo}[0] = 5;
-      $TestCase::Cpp::Thread::FOO = 10;
+      $TestCase::Thread::FOO = 10;
       
-      warn "AAA $TestCase::Cpp::Thread::FOO";
+      warn "AAA $TestCase::Thread::FOO";
       
       warn "BBB $self->{foo}[0]";
     });

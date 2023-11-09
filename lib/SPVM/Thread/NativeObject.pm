@@ -1,4 +1,4 @@
-package SPVM::Cpp::Thread::NativeObject;
+package SPVM::Thread::NativeObject;
 
 our $VERSION = '0.01';
 
@@ -6,15 +6,15 @@ our $VERSION = '0.01';
 
 =head1 Name
 
-SPVM::Cpp::Thread::NativeObject - Cpp::Thread::NativeObject is a SPVM module
+SPVM::Thread::NativeObject - Thread::NativeObject is a SPVM module
 
 =head1 Usage
 
-  use Cpp::Thread::NativeObject;
+  use Thread::NativeObject;
   
 =head1 Description
 
-C<Cpp::Thread::NativeObject> is a L<SPVM> module.
+C<Thread::NativeObject> is a L<SPVM> module.
 
 =head1 Fields
 
