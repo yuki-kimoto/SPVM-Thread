@@ -1,0 +1,6 @@
+class Thread::ThisThread {
+  use Thread::ID;
+  
+  # Instance Methods
+  native static method get_id : Thread::ID ();
+}

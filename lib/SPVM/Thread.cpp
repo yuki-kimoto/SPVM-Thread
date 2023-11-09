@@ -1,5 +1,7 @@
 #include "spvm_native.h"
 
+#include <assert.h>
+
 #include <iostream>
 #include <thread>
 
@@ -7,41 +9,64 @@ extern "C" {
 
 static const char* FILE_NAME = "Thread.cpp";
 
-static void handler (SPVM_ENV* env, SPVM_VALUE* stack, void* obj_handler) {
+static void thread_handler (SPVM_ENV* env, void* obj_self, void* obj_task) {
   
   int32_t error_id = 0;
   
-  {
-    SPVM_VALUE* thread_stack = env->new_stack(env);
-    thread_stack[0].oval = obj_handler;
-    env->call_instance_method_by_name(env, thread_stack, "", 0, &error_id, __func__, FILE_NAME, __LINE__);
-    env->free_stack(env, thread_stack);
+  SPVM_VALUE* stack = env->new_stack(env);
+  
+  stack[0].oval = obj_task;
+  env->call_instance_method_by_name(env, stack, "", 1, &error_id, __func__, FILE_NAME, __LINE__);
+  
+  if (error_id) {
+    
+    void* obj_exception = env->get_exception(env, stack);
+    const char* exception = env->get_chars(env, stack, obj_exception);
+    
+    env->set_field_object_by_name(env, stack, obj_self, "exception", obj_exception, &error_id, __func__, FILE_NAME, __LINE__);
+    assert(error_id == 0);
+    
+    env->set_field_int_by_name(env, stack, obj_self, "error_id", error_id, &error_id, __func__, FILE_NAME, __LINE__);
+    assert(error_id == 0);
   }
+  
+  env->free_stack(env, stack);
   
   return;
 }
 
-int32_t SPVM__Thread__new(SPVM_ENV* env, SPVM_VALUE* stack) {
+int32_t SPVM__Thread__create(SPVM_ENV* env, SPVM_VALUE* stack) {
   
   int32_t error_id = 0;
   
-  void* obj_handler = stack[0].oval;
+  void* obj_self = stack[0].oval;
+  
+  void* obj_task = env->get_field_object_by_name(env, stack, obj_self, "task", &error_id, __func__, FILE_NAME, __LINE__);
+  if (error_id) { return error_id; }
   
   std::thread* nt_thread = (std::thread*)env->new_memory_block(env, stack, sizeof(std::thread));
   
-  *nt_thread = std::thread(handler, env, stack, obj_handler);
+  *nt_thread = std::thread(thread_handler, env, obj_self, obj_task);
+  
+  env->set_pointer(env, stack, obj_self, nt_thread);
+  
+  return 0;
+}
 
-  void* obj_thread = env->new_pointer_object_by_name(env, stack, "Thread", nt_thread, &error_id, __func__, FILE_NAME, __LINE__);
-  if (error_id) { return error_id; }
-
-  stack[0].oval = obj_thread;
+int32_t SPVM__Thread__joinable(SPVM_ENV* env, SPVM_VALUE* stack) {
+  
+  void* obj_thread = stack[0].oval;
+  
+  std::thread* nt_thread = (std::thread*)env->get_pointer(env, stack, obj_thread);
+  
+  int32_t joinable = nt_thread->joinable();
+  
+  stack[0].ival = joinable;
   
   return 0;
 }
 
 int32_t SPVM__Thread__join(SPVM_ENV* env, SPVM_VALUE* stack) {
-  
-  int32_t e;
   
   void* obj_thread = stack[0].oval;
   
@@ -61,8 +86,6 @@ int32_t SPVM__Thread__join(SPVM_ENV* env, SPVM_VALUE* stack) {
 
 int32_t SPVM__Thread__detach(SPVM_ENV* env, SPVM_VALUE* stack) {
   
-  int32_t e;
-  
   void* obj_thread = stack[0].oval;
   
   std::thread* nt_thread = (std::thread*)env->get_pointer(env, stack, obj_thread);
@@ -78,17 +101,39 @@ int32_t SPVM__Thread__detach(SPVM_ENV* env, SPVM_VALUE* stack) {
   return 0;
 }
 
-int32_t SPVM__Thread__joinable(SPVM_ENV* env, SPVM_VALUE* stack) {
-  
-  int32_t e;
+int32_t SPVM__Thread__DESTROY(SPVM_ENV* env, SPVM_VALUE* stack) {
   
   void* obj_thread = stack[0].oval;
   
   std::thread* nt_thread = (std::thread*)env->get_pointer(env, stack, obj_thread);
   
-  int32_t joinable = nt_thread->joinable();
+  if (nt_thread->joinable()) {
+    nt_thread->detach();
+  }
   
-  stack[0].ival = joinable;
+  env->free_memory_block(env, stack, nt_thread);
+  
+  return 0;
+}
+
+int32_t SPVM__Thread__get_id(SPVM_ENV* env, SPVM_VALUE* stack) {
+  
+  int32_t error_id = 0;
+  
+  void* obj_thread = stack[0].oval;
+  
+  std::thread* nt_thread = (std::thread*)env->get_pointer(env, stack, obj_thread);
+  
+  std::thread::id* thread_id = (std::thread::id*)env->new_memory_block(env, stack, sizeof(std::thread::id));
+  
+  *thread_id = nt_thread->get_id();
+  
+  void* obj_thread_id = env->new_object_by_name(env, stack, "Thread::ID", &error_id, __func__, FILE_NAME, __LINE__);
+  if (error_id) { return error_id; }
+  
+  env->set_pointer(env, stack, obj_thread_id, (void*)thread_id);
+  
+  stack[0].oval = obj_thread_id;
   
   return 0;
 }
