@@ -8,6 +8,8 @@ BEGIN { $ENV{SPVM_BUILD_DIR} = "$FindBin::Bin/.spvm_build"; }
 
 use SPVM 'TestCase::Thread';
 
-ok(SPVM::TestCase::Thread->test);
+ok(SPVM::TestCase::Thread->basic);
+
+ok(SPVM::TestCase::Thread->joinable);
 
 done_testing;
