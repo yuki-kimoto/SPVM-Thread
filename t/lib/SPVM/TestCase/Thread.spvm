@@ -1,5 +1,6 @@
 class TestCase::Thread {
   use Thread;
+  use Sys::Process;
   
   our $RESULT : public int[];
   
@@ -14,6 +15,14 @@ class TestCase::Thread {
       
       $TestCase::Thread::RESULT->[0] = 10;
     });
+    
+    Sys::Process->usleep(200_000);
+    
+    my $joinable = $thread->joinable;
+    
+    unless ($joinable == 1) {
+      return 0;
+    }
     
     $thread->join;
     
