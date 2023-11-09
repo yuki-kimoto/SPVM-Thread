@@ -1,6 +1,6 @@
 package SPVM::Thread;
 
-our $VERSION = '0.01';
+our $VERSION = '0.001';
 
 1;
 
@@ -14,7 +14,7 @@ SPVM::Thread - Thread is a SPVM module
   
 =head1 Description
 
-C<Thread> is a L<SPVM> module.
+The C<Thread> class has methods to create threads.
 
 =head1 Fields
 

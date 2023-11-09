@@ -3,10 +3,6 @@ class Thread {
   use Thread::ID;
   
   # Fields
-  has exception : ro string;
-  
-  has error_id : ro int;
-  
   has task : Callback;
   
   # Class Methods

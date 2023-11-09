@@ -8,24 +8,25 @@ class TestCase::Thread {
     
     $TestCase::Thread::FOO = 5;
     
-    my $foo = [13];
-    my $thread = Thread->new([has foo : int[]] method : void () {
-      warn "CCC $self->{foo}[0]";
-      $self->{foo}[0] = 5;
+    my $results = [0];
+    my $thread = Thread->new([$results : int[]] method : void () {
+    
+      $results->[0] = 5;
+      
       $TestCase::Thread::FOO = 10;
       
       warn "AAA $TestCase::Thread::FOO";
       
-      warn "BBB $self->{foo}[0]";
+      warn "BBB $results->[0]";
     });
     
     $thread->join;
     
     # Sys::Process->sleep(1);
     
-    say $FOO;
+    warn $FOO;
     
-    say $foo->[0];
+    warn $results->[0];
     
     return 1;
   }

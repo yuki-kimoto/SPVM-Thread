@@ -19,15 +19,14 @@ static void thread_handler (SPVM_ENV* env, void* obj_self, void* obj_task) {
   env->call_instance_method_by_name(env, stack, "", 1, &error_id, __func__, FILE_NAME, __LINE__);
   
   if (error_id) {
-    
     void* obj_exception = env->get_exception(env, stack);
     const char* exception = env->get_chars(env, stack, obj_exception);
     
-    env->set_field_object_by_name(env, stack, obj_self, "exception", obj_exception, &error_id, __func__, FILE_NAME, __LINE__);
-    assert(error_id == 0);
+    fprintf(env->api->runtime->get_spvm_stderr(env->runtime), "[An exception thrown in a thread is converted to a warning]\n");
     
-    env->set_field_int_by_name(env, stack, obj_self, "error_id", error_id, &error_id, __func__, FILE_NAME, __LINE__);
-    assert(error_id == 0);
+    env->print_stderr(env, stack, obj_exception);
+    
+    fprintf(env->api->runtime->get_spvm_stderr(env->runtime), "\n");
   }
   
   env->free_stack(env, stack);
