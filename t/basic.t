@@ -10,6 +10,4 @@ use SPVM 'TestCase::Thread';
 
 ok(SPVM::TestCase::Thread->basic);
 
-ok(SPVM::TestCase::Thread->joinable);
-
 done_testing;

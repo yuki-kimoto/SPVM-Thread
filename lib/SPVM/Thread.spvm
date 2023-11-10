@@ -24,8 +24,6 @@ class Thread {
   
   native method detach : void ();
   
-  native method joinable : int ();
-  
   native method DESTROY : void ();
   
   native method get_id : Thread::ID ();

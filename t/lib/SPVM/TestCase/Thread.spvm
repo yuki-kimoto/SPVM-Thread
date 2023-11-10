@@ -29,22 +29,4 @@ class TestCase::Thread {
     return 1;
   }
   
-  static method joinable : int () {
-    
-    my $thread = Thread->new(method : void () {
-    
-    });
-    
-    Sys::Process->usleep(200_000);
-    
-    my $joinable = $thread->joinable;
-    
-    unless ($joinable == 1) {
-      return 0;
-    }
-    
-    $thread->join;
-    
-    return 1;
-  }
 }

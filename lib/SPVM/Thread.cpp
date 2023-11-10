@@ -52,19 +52,6 @@ int32_t SPVM__Thread__create(SPVM_ENV* env, SPVM_VALUE* stack) {
   return 0;
 }
 
-int32_t SPVM__Thread__joinable(SPVM_ENV* env, SPVM_VALUE* stack) {
-  
-  void* obj_thread = stack[0].oval;
-  
-  std::thread* nt_thread = (std::thread*)env->get_pointer(env, stack, obj_thread);
-  
-  int32_t joinable = nt_thread->joinable();
-  
-  stack[0].ival = joinable;
-  
-  return 0;
-}
-
 int32_t SPVM__Thread__join(SPVM_ENV* env, SPVM_VALUE* stack) {
   
   void* obj_thread = stack[0].oval;
