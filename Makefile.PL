@@ -3,8 +3,23 @@ use ExtUtils::MakeMaker;
 use strict;
 use warnings;
 use Config;
-use SPVM::Builder::Util::API;
+use Getopt::Long 'GetOptions';
 
+GetOptions(
+  'meta' => \my $meta,
+  'no-build-spvm-modules' => \my $no_build_spvm_modules,
+);
+
+if ($meta) {
+  $no_build_spvm_modules = 1;
+}
+
+unless ($meta) {
+  # Do something such as environment check.
+}
+
+
+my %configure_and_runtime_requires = ('SPVM' => '0.989058');
 WriteMakefile(
   NAME              => 'SPVM::Thread',
   VERSION_FROM      => 'lib/SPVM/Thread.pm',
@@ -29,11 +44,10 @@ WriteMakefile(
   },
   NORECURS => 1,
   CONFIGURE_REQUIRES => {
-    # SPVM::Builder::Util::API is needed for Makefile.PL
-    'SPVM'              => '0.989058',
+    %configure_and_runtime_requires,
   },
-  PREREQ_PM => {
-    
+  PREREQ_PM         => {
+    %configure_and_runtime_requires,
   },
   TEST_REQUIRES => {
     
@@ -44,8 +58,11 @@ sub MY::postamble {
 
   my $make_rule = '';
   
-  $make_rule .= SPVM::Builder::Util::API::create_make_rule_native('Thread');
-  
+  unless ($no_build_spvm_modules) {
+    require SPVM::Builder::Util::API;
+    
+    $make_rule .= SPVM::Builder::Util::API::create_make_rule_native('Thread');
+  }
   
   return $make_rule;
 }
