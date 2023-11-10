@@ -30,11 +30,11 @@ The C<Thread> class has methods to create threads.
 
 =head1 Repository
 
-
+L<>
 
 =head1 Author
 
-[--user-name] C<[--user-email]>
+Yuki Kimoto C<kimoto.yuki@gmail.com>
 
 =head1 Copyright & License
 
