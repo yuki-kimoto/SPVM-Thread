@@ -2,7 +2,6 @@ class TestCase::Thread {
   use Thread;
   use Thread::ID;
   use Thread::ThisThread;
-  use Sys::Process;
   
   our $RESULT : public int[];
   
