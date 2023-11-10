@@ -11,15 +11,23 @@ static const char* FILE_NAME = "Thread/ID.cpp";
 
 int32_t SPVM__Thread__ID__eq(SPVM_ENV* env, SPVM_VALUE* stack) {
   
-  void* obj_self = stack[0].oval;
+  void* obj_thread_id1 = stack[0].oval;
   
-  void* obj_thread_id = stack[1].oval;
+  if (!obj_thread_id1) {
+    return env->die(env, stack, "$thread_id1 must be defined.", __func__, FILE_NAME, __LINE__);
+  }
   
-  std::thread::id* self_thread_id = (std::thread::id*)env->get_pointer(env, stack, obj_self);
+  void* obj_thread_id2 = stack[1].oval;
   
-  std::thread::id* thread_id = (std::thread::id*)env->get_pointer(env, stack, obj_thread_id);
+  if (!obj_thread_id2) {
+    return env->die(env, stack, "$thread_id2 must be defined.", __func__, FILE_NAME, __LINE__);
+  }
   
-  int32_t ok = *self_thread_id == *thread_id;
+  std::thread::id* thread_id1 = (std::thread::id*)env->get_pointer(env, stack, obj_thread_id1);
+  
+  std::thread::id* thread_id2 = (std::thread::id*)env->get_pointer(env, stack, obj_thread_id2);
+  
+  int32_t ok = *thread_id1 == *thread_id2;
   
   stack[0].ival = ok;
   
@@ -28,15 +36,23 @@ int32_t SPVM__Thread__ID__eq(SPVM_ENV* env, SPVM_VALUE* stack) {
 
 int32_t SPVM__Thread__ID__ne(SPVM_ENV* env, SPVM_VALUE* stack) {
   
-  void* obj_self = stack[0].oval;
+  void* obj_thread_id1 = stack[0].oval;
   
-  void* obj_thread_id = stack[1].oval;
+  if (!obj_thread_id1) {
+    return env->die(env, stack, "$thread_id1 must be defined.", __func__, FILE_NAME, __LINE__);
+  }
   
-  std::thread::id* self_thread_id = (std::thread::id*)env->get_pointer(env, stack, obj_self);
+  void* obj_thread_id2 = stack[1].oval;
   
-  std::thread::id* thread_id = (std::thread::id*)env->get_pointer(env, stack, obj_thread_id);
+  if (!obj_thread_id2) {
+    return env->die(env, stack, "$thread_id2 must be defined.", __func__, FILE_NAME, __LINE__);
+  }
   
-  int32_t ok = *self_thread_id != *thread_id;
+  std::thread::id* thread_id1 = (std::thread::id*)env->get_pointer(env, stack, obj_thread_id1);
+  
+  std::thread::id* thread_id2 = (std::thread::id*)env->get_pointer(env, stack, obj_thread_id2);
+  
+  int32_t ok = *thread_id1 != *thread_id2;
   
   stack[0].ival = ok;
   
@@ -45,15 +61,23 @@ int32_t SPVM__Thread__ID__ne(SPVM_ENV* env, SPVM_VALUE* stack) {
 
 int32_t SPVM__Thread__ID__gt(SPVM_ENV* env, SPVM_VALUE* stack) {
   
-  void* obj_self = stack[0].oval;
+  void* obj_thread_id1 = stack[0].oval;
   
-  void* obj_thread_id = stack[1].oval;
+  if (!obj_thread_id1) {
+    return env->die(env, stack, "$thread_id1 must be defined.", __func__, FILE_NAME, __LINE__);
+  }
   
-  std::thread::id* self_thread_id = (std::thread::id*)env->get_pointer(env, stack, obj_self);
+  void* obj_thread_id2 = stack[1].oval;
   
-  std::thread::id* thread_id = (std::thread::id*)env->get_pointer(env, stack, obj_thread_id);
+  if (!obj_thread_id2) {
+    return env->die(env, stack, "$thread_id2 must be defined.", __func__, FILE_NAME, __LINE__);
+  }
   
-  int32_t ok = *self_thread_id > *thread_id;
+  std::thread::id* thread_id1 = (std::thread::id*)env->get_pointer(env, stack, obj_thread_id1);
+  
+  std::thread::id* thread_id2 = (std::thread::id*)env->get_pointer(env, stack, obj_thread_id2);
+  
+  int32_t ok = *thread_id1 > *thread_id2;
   
   stack[0].ival = ok;
   
@@ -62,15 +86,23 @@ int32_t SPVM__Thread__ID__gt(SPVM_ENV* env, SPVM_VALUE* stack) {
 
 int32_t SPVM__Thread__ID__ge(SPVM_ENV* env, SPVM_VALUE* stack) {
   
-  void* obj_self = stack[0].oval;
+  void* obj_thread_id1 = stack[0].oval;
   
-  void* obj_thread_id = stack[1].oval;
+  if (!obj_thread_id1) {
+    return env->die(env, stack, "$thread_id1 must be defined.", __func__, FILE_NAME, __LINE__);
+  }
   
-  std::thread::id* self_thread_id = (std::thread::id*)env->get_pointer(env, stack, obj_self);
+  void* obj_thread_id2 = stack[1].oval;
   
-  std::thread::id* thread_id = (std::thread::id*)env->get_pointer(env, stack, obj_thread_id);
+  if (!obj_thread_id2) {
+    return env->die(env, stack, "$thread_id2 must be defined.", __func__, FILE_NAME, __LINE__);
+  }
   
-  int32_t ok = *self_thread_id >= *thread_id;
+  std::thread::id* thread_id1 = (std::thread::id*)env->get_pointer(env, stack, obj_thread_id1);
+  
+  std::thread::id* thread_id2 = (std::thread::id*)env->get_pointer(env, stack, obj_thread_id2);
+  
+  int32_t ok = *thread_id1 >= *thread_id2;
   
   stack[0].ival = ok;
   
@@ -79,15 +111,23 @@ int32_t SPVM__Thread__ID__ge(SPVM_ENV* env, SPVM_VALUE* stack) {
 
 int32_t SPVM__Thread__ID__lt(SPVM_ENV* env, SPVM_VALUE* stack) {
   
-  void* obj_self = stack[0].oval;
+  void* obj_thread_id1 = stack[0].oval;
   
-  void* obj_thread_id = stack[1].oval;
+  if (!obj_thread_id1) {
+    return env->die(env, stack, "$thread_id1 must be defined.", __func__, FILE_NAME, __LINE__);
+  }
   
-  std::thread::id* self_thread_id = (std::thread::id*)env->get_pointer(env, stack, obj_self);
+  void* obj_thread_id2 = stack[1].oval;
   
-  std::thread::id* thread_id = (std::thread::id*)env->get_pointer(env, stack, obj_thread_id);
+  if (!obj_thread_id2) {
+    return env->die(env, stack, "$thread_id2 must be defined.", __func__, FILE_NAME, __LINE__);
+  }
   
-  int32_t ok = *self_thread_id < *thread_id;
+  std::thread::id* thread_id1 = (std::thread::id*)env->get_pointer(env, stack, obj_thread_id1);
+  
+  std::thread::id* thread_id2 = (std::thread::id*)env->get_pointer(env, stack, obj_thread_id2);
+  
+  int32_t ok = *thread_id1 < *thread_id2;
   
   stack[0].ival = ok;
   
@@ -96,15 +136,23 @@ int32_t SPVM__Thread__ID__lt(SPVM_ENV* env, SPVM_VALUE* stack) {
 
 int32_t SPVM__Thread__ID__le(SPVM_ENV* env, SPVM_VALUE* stack) {
   
-  void* obj_self = stack[0].oval;
+  void* obj_thread_id1 = stack[0].oval;
   
-  void* obj_thread_id = stack[1].oval;
+  if (!obj_thread_id1) {
+    return env->die(env, stack, "$thread_id1 must be defined.", __func__, FILE_NAME, __LINE__);
+  }
   
-  std::thread::id* self_thread_id = (std::thread::id*)env->get_pointer(env, stack, obj_self);
+  void* obj_thread_id2 = stack[1].oval;
   
-  std::thread::id* thread_id = (std::thread::id*)env->get_pointer(env, stack, obj_thread_id);
+  if (!obj_thread_id2) {
+    return env->die(env, stack, "$thread_id2 must be defined.", __func__, FILE_NAME, __LINE__);
+  }
   
-  int32_t ok = *self_thread_id <= *thread_id;
+  std::thread::id* thread_id1 = (std::thread::id*)env->get_pointer(env, stack, obj_thread_id1);
+  
+  std::thread::id* thread_id2 = (std::thread::id*)env->get_pointer(env, stack, obj_thread_id2);
+  
+  int32_t ok = *thread_id1 <= *thread_id2;
   
   stack[0].ival = ok;
   

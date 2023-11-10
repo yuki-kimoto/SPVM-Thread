@@ -22,8 +22,7 @@ class Thread {
   
   native method join : void ();
   
-  native method DESTROY : void ();
-  
   native method get_id : Thread::ID ();
   
+  native method DESTROY : void ();
 }
