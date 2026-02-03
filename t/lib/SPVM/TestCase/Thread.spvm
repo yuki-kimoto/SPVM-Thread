@@ -57,4 +57,26 @@ class TestCase::Thread {
     return 1;
   }
   
+  static method exception : int () {
+    
+    # Create a thread that calls a method which throws an exception
+    my $thread = Thread->new(method : void () {
+      
+      # Level 1 call
+      TestCase::Thread->throw_exception_method;
+    });
+    
+    # The exception in the thread should be converted to a warning,
+    # and the program should continue without crashing.
+    $thread->join;
+    
+    # If we reached here, the crash was avoided.
+    return 1;
+  }
+
+  static method throw_exception_method : void () {
+    # Level 2 call (origin of the exception)
+    die "Exception in thread via method call";
+  }
+  
 }

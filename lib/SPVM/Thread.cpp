@@ -22,12 +22,18 @@ static void thread_handler (SPVM_ENV* env, void* obj_self, void* obj_task) {
   env->call_instance_method_by_name(env, stack, "", 1, &error_id, __func__, FILE_NAME, __LINE__);
   
   if (error_id) {
-    void* obj_exception = env->get_exception(env, stack);
-    const char* exception = env->get_chars(env, stack, obj_exception);
+    // Reconstruct the full exception message including stack trace.
+    // The level 0 means the trace starts from the origin of the exception.
+    int32_t scope_id = env->enter_scope(env, stack);
+    
+    void* obj_full_exception_message = env->build_exception_message(env, stack, 0);
     
     fprintf(env->api->runtime->get_spvm_stderr(env->runtime), "[An exception thrown in a thread is converted to a warning]\n");
     
-    env->print_stderr(env, stack, obj_exception);
+    // Print the full exception message with stack trace.
+    env->print_stderr(env, stack, obj_full_exception_message);
+    
+    env->leave_scope(env, stack, scope_id);
     
     fprintf(env->api->runtime->get_spvm_stderr(env->runtime), "\n");
   }

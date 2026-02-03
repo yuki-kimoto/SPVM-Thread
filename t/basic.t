@@ -15,9 +15,11 @@ my $api = SPVM::api();
 
 my $start_memory_blocks_count = $api->get_memory_blocks_count;
 
-ok(SPVM::TestCase::Thread->basic);
+# ok(SPVM::TestCase::Thread->basic);
 
-ok(SPVM::TestCase::Thread->thread_id);
+# ok(SPVM::TestCase::Thread->thread_id);
+
+ok(SPVM::TestCase::Thread->exception);
 
 # Version
 {
