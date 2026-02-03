@@ -1,6 +1,6 @@
 package SPVM::Thread;
 
-our $VERSION = "0.005";
+our $VERSION = "0.006";
 
 1;
 
