@@ -1,3 +1,8 @@
+0.010 2026-08-27
+  [Requirement Changes]
+    * Require SPVM 0.990196.
+  [Internal Changes]
+    * Change config extension from .config to .build.
 0.009 2026-06-25
   [Requirement Changes]
     * Require SPVM 0.990191.
