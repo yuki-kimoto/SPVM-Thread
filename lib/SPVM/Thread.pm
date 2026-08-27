@@ -1,12 +1,18 @@
 package SPVM::Thread;
 
-our $VERSION = "0.009";
+our $VERSION = "0.010";
 
 1;
 
 =head1 Name
 
 SPVM::Thread - Native Thread
+
+=head1 Description
+
+Thread class in L<SPVM> manipulates native threads.
+
+This class is a binding of L<std::thread in C++|https://en.cppreference.com/w/cpp/thread/thread>.
 
 =head1 Usage
 
@@ -18,12 +24,6 @@ SPVM::Thread - Native Thread
   });
   
   $thread->join;
-
-=head1 Description
-
-Thread class in L<SPVM> has methods to create native threads.
-
-This class is a binding of L<std::thread in C++|https://en.cppreference.com/w/cpp/thread/thread>.
 
 =head1 Class Methods
 
