@@ -25,6 +25,20 @@ This class is a binding of L<std::thread in C++|https://en.cppreference.com/w/cp
   
   $thread->join;
 
+=head1 Fields
+
+=head2 task
+
+C<has task : Callback;>
+
+A task exceuted by a thread.
+
+=head2 caller_info
+
+C<has caller_info : CallerInfo;>
+
+Thead caller information.
+
 =head1 Class Methods
 
 C<static method new : L<Thread|SPVM::Thread> ($task : L<Callback|SPVM::Callback>);>
