@@ -55,19 +55,18 @@ int32_t SPVM__Thread__create(SPVM_ENV* env, SPVM_VALUE* stack) {
   std::thread* nt_thread = (std::thread*)env->new_memory_block(env, stack, sizeof(std::thread));
   
   SPVM_OBJ* obj_caller_info = env->get_field_object_by_name(env, stack, obj_self, "caller_info", &error_id, __func__, FILE_NAME, __LINE__);
-  assert(obj_caller_info);
-  assert(error_id == 0);
+  if (error_id) return error_id;
   
   SPVM_OBJ* obj_caller_method_abs_name = env->get_field_object_by_name(env, stack, obj_caller_info, "method_abs_name", &error_id, __func__, FILE_NAME, __LINE__);
-  assert(error_id == 0);
+  if (error_id) return error_id;
   const char* caller_method_abs_name = env->get_chars(env, stack, obj_caller_method_abs_name);
   
   SPVM_OBJ* obj_caller_file = env->get_field_object_by_name(env, stack, obj_caller_info, "file", &error_id, __func__, FILE_NAME, __LINE__);
-  assert(error_id == 0);
+  if (error_id) return error_id;
   const char* caller_file = env->get_chars(env, stack, obj_caller_file);
   
   int32_t caller_line = env->get_field_int_by_name(env, stack, obj_caller_info, "line", &error_id, __func__, FILE_NAME, __LINE__);
-  assert(error_id == 0);
+  if (error_id) return error_id;
   
   *nt_thread = std::thread(thread_handler, env, obj_self, obj_task, caller_method_abs_name, caller_file, caller_line);
   
