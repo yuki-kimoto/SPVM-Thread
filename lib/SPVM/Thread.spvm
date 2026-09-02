@@ -10,12 +10,17 @@ class Thread {
   # Fields
   has task : Callback;
   
+  has caller_info : CallerInfo;
+  
   # Class Methods
   static method new : Thread ($task : Callback) {
     
     my $self = new Thread;
     
     $self->{task} = $task;
+    
+    my $caller_info = caller;
+    $self->{caller_info} = $caller_info;
     
     $self->create;
     
