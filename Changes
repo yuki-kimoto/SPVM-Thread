@@ -1,8 +1,8 @@
-0.011 2026-08-27
+0.011 2026-09-02
   [Release Summary]
     * Thread caller information is now displayed in the exception caller stack.
   [Internal Changes]
-    * 
+    * Add caller_info field to Thread class. Thead#new method calls caller operator to set caller_info field to caller information.
 0.010 2026-08-27
   [Requirement Changes]
     * Require SPVM 0.990196.
