@@ -68,7 +68,12 @@ int32_t SPVM__Thread__create(SPVM_ENV* env, SPVM_VALUE* stack) {
   int32_t caller_line = env->get_field_int_by_name(env, stack, obj_caller_info, "line", &error_id, __func__, FILE_NAME, __LINE__);
   if (error_id) return error_id;
   
-  *nt_thread = std::thread(thread_handler, env, obj_self, obj_task, caller_method_abs_name, caller_file, caller_line);
+  try {
+    *nt_thread = std::thread(thread_handler, env, obj_self, obj_task, caller_method_abs_name, caller_file, caller_line);
+  }
+  catch (const std::exception& e) {
+    return env->die(env, stack, "Failed to create thread: %s", __func__, FILE_NAME, __LINE__, e.what());
+  }
   
   env->set_pointer(env, stack, obj_self, nt_thread);
   
